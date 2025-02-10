@@ -473,6 +473,7 @@ namespace {
                 // An important Chess960 pattern: a cornered bishop blocked by a friendly
                 // pawn diagonally in front of it is a very serious problem, especially
                 // when that pawn is also blocked.
+                /**
                 if (   pos.is_chess960()
                     && (s == relative_square(Us, SQ_A1) || s == relative_square(Us, SQ_H1)))
                 {
@@ -480,7 +481,7 @@ namespace {
                     if (pos.piece_on(s + d) == make_piece(Us, PAWN))
                         score -= !pos.empty(s + d + pawn_push(Us)) ? 4 * make_score(CorneredBishop, CorneredBishop)
                                                                    : 3 * make_score(CorneredBishop, CorneredBishop);
-                }
+                }*/
             }
         }
 

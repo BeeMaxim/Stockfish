@@ -80,7 +80,7 @@ constexpr string_view version = "16";
 /// can toggle the logging of std::cout and std:cin at runtime whilst preserving
 /// usual I/O functionality, all without changing a single line of code!
 /// Idea from http://groups.google.com/group/comp.lang.c++/msg/1d941c0f26ea0d81
-
+/*
 struct Tie: public streambuf { // MSVC requires split streambuf for cin and cout
 
   Tie(streambuf* b, streambuf* l) : buf(b), logBuf(l) {}
@@ -101,8 +101,8 @@ struct Tie: public streambuf { // MSVC requires split streambuf for cin and cout
 
     return last = logBuf->sputc((char)c);
   }
-};
-
+};*/
+/*
 class Logger {
 
   Logger() : in(cin.rdbuf(), file.rdbuf()), out(cout.rdbuf(), file.rdbuf()) {}
@@ -137,7 +137,7 @@ public:
         cout.rdbuf(&l.out);
     }
   }
-};
+};*/
 
 } // namespace
 
@@ -411,7 +411,7 @@ std::ostream& operator<<(std::ostream& os, SyncCout sc) {
 
 
 /// Trampoline helper to avoid moving Logger to misc.h
-void start_logger(const std::string& fname) { Logger::start(fname); }
+// void start_logger(const std::string& fname) { Logger::start(fname); }
 
 
 /// prefetch() preloads the given address in L1/L2 cache. This is a non-blocking

@@ -85,8 +85,8 @@ namespace Endgames {
     add<KRPKB>("KRPKB");
     add<KBPKB>("KBPKB");
     add<KBPKN>("KBPKN");
-    add<KBPPKB>("KBPPKB");
-    add<KRPPKRP>("KRPPKRP");
+    //add<KBPPKB>("KBPPKB");
+    //add<KRPPKRP>("KRPPKRP");
   }
 }
 
