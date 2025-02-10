@@ -29,7 +29,7 @@
 #include "psqt.h"
 #include "types.h"
 
-#include "nnue/nnue_accumulator.h"
+// #include "nnue/nnue_accumulator.h"
 
 namespace Stockfish {
 
@@ -59,8 +59,8 @@ struct StateInfo {
   int        repetition;
 
   // Used by NNUE
-  Eval::NNUE::Accumulator accumulator;
-  DirtyPiece dirtyPiece;
+  // Eval::NNUE::Accumulator accumulator;
+  // DirtyPiece dirtyPiece;
 };
 
 

@@ -31,7 +31,7 @@
 #include "thread.h"
 #include "tt.h"
 #include "uci.h"
-#include "syzygy/tbprobe.h"
+// #include "syzygy/tbprobe.h"
 
 using std::string;
 
@@ -55,7 +55,7 @@ constexpr Piece Pieces[] = { W_PAWN, W_KNIGHT, W_BISHOP, W_ROOK, W_QUEEN, W_KING
 
 
 /// operator<<(Position) returns an ASCII representation of the position
-
+/*
 std::ostream& operator<<(std::ostream& os, const Position& pos) {
 
   os << "\n +---+---+---+---+---+---+---+---+\n";
@@ -92,7 +92,7 @@ std::ostream& operator<<(std::ostream& os, const Position& pos) {
   }
 
   return os;
-}
+}*/
 
 
 // Marcel van Kervinck's cuckoo algorithm for fast detection of "upcoming repetition"
@@ -701,10 +701,10 @@ void Position::do_move(Move m, StateInfo& newSt, bool givesCheck) {
   ++st->pliesFromNull;
 
   // Used by NNUE
-  st->accumulator.computed[WHITE] = false;
-  st->accumulator.computed[BLACK] = false;
-  auto& dp = st->dirtyPiece;
-  dp.dirty_num = 1;
+  // st->accumulator.computed[WHITE] = false;
+  // st->accumulator.computed[BLACK] = false;
+  // auto& dp = st->dirtyPiece;
+  // dp.dirty_num = 1;
 
   Color us = sideToMove;
   Color them = ~us;
@@ -752,14 +752,14 @@ void Position::do_move(Move m, StateInfo& newSt, bool givesCheck) {
       }
       else
           st->nonPawnMaterial[them] -= PieceValue[MG][captured];
-
+/*
       if (Eval::useNNUE)
       {
           dp.dirty_num = 2;  // 1 piece moved, 1 piece captured
           dp.piece[1] = captured;
           dp.from[1] = capsq;
           dp.to[1] = SQ_NONE;
-      }
+      }*/
 
       // Update board and piece lists
       remove_piece(capsq);
@@ -794,12 +794,13 @@ void Position::do_move(Move m, StateInfo& newSt, bool givesCheck) {
   // Move the piece. The tricky Chess960 castling is handled earlier
   if (type_of(m) != CASTLING)
   {
+    /*
       if (Eval::useNNUE)
       {
           dp.piece[0] = pc;
           dp.from[0] = from;
           dp.to[0] = to;
-      }
+      }*/
 
       move_piece(from, to);
   }
@@ -824,7 +825,7 @@ void Position::do_move(Move m, StateInfo& newSt, bool givesCheck) {
 
           remove_piece(to);
           put_piece(promotion, to);
-
+/*
           if (Eval::useNNUE)
           {
               // Promoting pawn to SQ_NONE, promoted piece from SQ_NONE
@@ -833,7 +834,7 @@ void Position::do_move(Move m, StateInfo& newSt, bool givesCheck) {
               dp.from[dp.dirty_num] = SQ_NONE;
               dp.to[dp.dirty_num] = to;
               dp.dirty_num++;
-          }
+          }*/
 
           // Update hash keys
           k ^= Zobrist::psq[pc][to] ^ Zobrist::psq[promotion][to];
@@ -962,7 +963,7 @@ void Position::do_castling(Color us, Square from, Square& to, Square& rfrom, Squ
   rfrom = to; // Castling is encoded as "king captures friendly rook"
   rto = relative_square(us, kingSide ? SQ_F1 : SQ_D1);
   to = relative_square(us, kingSide ? SQ_G1 : SQ_C1);
-
+/*
   if (Do && Eval::useNNUE)
   {
       auto& dp = st->dirtyPiece;
@@ -973,7 +974,7 @@ void Position::do_castling(Color us, Square from, Square& to, Square& rfrom, Squ
       dp.from[1] = rfrom;
       dp.to[1] = rto;
       dp.dirty_num = 2;
-  }
+  }*/
 
   // Remove both pieces first since squares could overlap in Chess960
   remove_piece(Do ? from : to);
@@ -992,15 +993,15 @@ void Position::do_null_move(StateInfo& newSt) {
   assert(!checkers());
   assert(&newSt != st);
 
-  std::memcpy(&newSt, st, offsetof(StateInfo, accumulator));
+  std::memcpy(&newSt, st, sizeof(StateInfo)); // accumulator
 
   newSt.previous = st;
   st = &newSt;
 
-  st->dirtyPiece.dirty_num = 0;
-  st->dirtyPiece.piece[0] = NO_PIECE; // Avoid checks in UpdateAccumulator()
-  st->accumulator.computed[WHITE] = false;
-  st->accumulator.computed[BLACK] = false;
+  // st->dirtyPiece.dirty_num = 0;
+  // st->dirtyPiece.piece[0] = NO_PIECE; // Avoid checks in UpdateAccumulator()
+  // st->accumulator.computed[WHITE] = false;
+  // st->accumulator.computed[BLACK] = false;
 
   if (st->epSquare != SQ_NONE)
   {
