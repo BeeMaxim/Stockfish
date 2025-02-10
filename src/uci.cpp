@@ -140,11 +140,11 @@ namespace {
         else if (token == "binc")      is >> limits.inc[BLACK];
         else if (token == "movestogo") is >> limits.movestogo;
         else if (token == "depth")     is >> limits.depth;
-        else if (token == "nodes")     is >> limits.nodes;
+        // else if (token == "nodes")     is >> limits.nodes;
         else if (token == "movetime")  is >> limits.movetime;
-        else if (token == "mate")      is >> limits.mate;
-        else if (token == "perft")     is >> limits.perft;
-        else if (token == "infinite")  limits.infinite = 1;
+        // else if (token == "mate")      is >> limits.mate;
+        // else if (token == "perft")     is >> limits.perft;
+        // else if (token == "infinite")  limits.infinite = 1;
         else if (token == "ponder")    ponderMode = true;
 
     Threads.start_thinking(pos, states, limits, ponderMode);
