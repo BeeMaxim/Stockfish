@@ -130,11 +130,12 @@ namespace {
     limits.startTime = now(); // The search starts as early as possible
 
     while (is >> token)
+    /*
         if (token == "searchmoves") // Needs to be the last command on the line
             while (is >> token)
-                limits.searchmoves.push_back(UCI::to_move(pos, token));
+                limits.searchmoves.push_back(UCI::to_move(pos, token));*/
 
-        else if (token == "wtime")     is >> limits.time[WHITE];
+        if (token == "wtime")     is >> limits.time[WHITE];
         else if (token == "btime")     is >> limits.time[BLACK];
         else if (token == "winc")      is >> limits.inc[WHITE];
         else if (token == "binc")      is >> limits.inc[BLACK];
@@ -238,7 +239,7 @@ void UCI::loop(int argc, char* argv[]) {
   string token, cmd;
   StateListPtr states(new std::deque<StateInfo>(1));
 
-  pos.set(StartFEN, false, &states->back(), Threads.main());
+  // pos.set(StartFEN, false, &states->back(), Threads.main());
 
   for (int i = 1; i < argc; ++i)
       cmd += std::string(argv[i]) + " ";
