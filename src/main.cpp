@@ -37,13 +37,13 @@ int main(int argc, char* argv[]) {
   //CommandLine::init(argc, argv);
   UCI::init(Options);
   // Tune::init();
-  //PSQT::init();
-  //Bitboards::init();
-  //Position::init();
+  PSQT::init();
+  Bitboards::init();
+  Position::init();
  // Bitbases::init();
  // Endgames::init();
-  //Threads.set(size_t(Options["Threads"]));
-  //Search::clear(); // After threads are up
+  Threads.set(size_t(Options["Threads"]));
+  Search::clear(); // After threads are up
  // Eval::NNUE::init();
 
   UCI::loop(argc, argv);

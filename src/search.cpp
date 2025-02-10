@@ -1030,7 +1030,7 @@ moves_loop: // When in check, search starts here
 
               lmrDepth += history / 7011; // FIX ???
               lmrDepth = std::max(lmrDepth, -2);
-
+            /*
               // Futility pruning: parent node (~13 Elo)
               if (   !ss->inCheck
                   && lmrDepth < 12
@@ -1041,7 +1041,7 @@ moves_loop: // When in check, search starts here
 
               // Prune moves with negative SEE (~4 Elo)
               if (!pos.see_ge(move, Value(-27 * lmrDepth * lmrDepth - 16 * lmrDepth)))
-                  continue;
+                  continue;*/
           }
       }
 
@@ -1175,12 +1175,12 @@ moves_loop: // When in check, search starts here
       else if (move == ttMove)
           r--;
 
-      ss->statScore =  2 * thisThread->mainHistory[us][from_to(move)]
+      ss->statScore =  4 * thisThread->mainHistory[us][from_to(move)] // 2
                      /*+ (*contHist[0])[movedPiece][to_sq(move)]
                      + (*contHist[1])[movedPiece][to_sq(move)]
                      + (*contHist[3])[movedPiece][to_sq(move)]*/ // FIX ???
-                     //- 4006;
-                     - 1200;
+                     - 4006;
+                     //- 1200;
 
       // Decrease/increase reduction for moves with a good/bad history (~25 Elo)
       r -= ss->statScore / (11124 + 4740 * (depth > 5 && depth < 22));
