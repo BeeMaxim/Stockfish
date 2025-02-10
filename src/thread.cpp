@@ -210,7 +210,7 @@ void ThreadPool::start_thinking(Position& pos, StateListPtr& states,
 }
 
 Thread* ThreadPool::get_best_thread() const {
-
+/*
     Thread* bestThread = threads.front();
     std::map<Move, int64_t> votes;
     Value minScore = VALUE_NONE;
@@ -242,7 +242,8 @@ Thread* ThreadPool::get_best_thread() const {
                                 > thread_value(bestThread) * int(bestThread->rootMoves[0].pv.size() > 2)))))
             bestThread = th;
 
-    return bestThread;
+    return bestThread;*/
+    return threads[0];
 }
 
 

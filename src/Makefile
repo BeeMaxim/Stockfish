@@ -56,9 +56,9 @@ else
 endif
 
 ### Source and object files
-SRCS = bitbase.cpp bitboard.cpp endgame.cpp evaluate.cpp main.cpp \
+SRCS = bitboard.cpp evaluate.cpp main.cpp \
 	material.cpp misc.cpp movegen.cpp movepick.cpp pawns.cpp position.cpp psqt.cpp \
-	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp # tune.cpp bitbase.cpp
+	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp bitbase.cpp endgame.cpp # tune.cpp bitbase.cpp
 
 OBJS = $(notdir $(SRCS:.cpp=.o))
 

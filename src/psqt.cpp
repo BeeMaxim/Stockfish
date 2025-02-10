@@ -19,7 +19,7 @@
 
 #include "psqt.h"
 
-#include <algorithm>
+// #include <algorithm>
 
 #include "bitboard.h"
 #include "types.h"
