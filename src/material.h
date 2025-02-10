@@ -62,7 +62,7 @@ struct Entry {
   uint8_t factor[COLOR_NB];
 };
 
-using Table = HashTable<Entry, 8192>;
+using Table = HashTable<Entry, 1024>; // 8192
 
 Entry* probe(const Position& pos);
 
