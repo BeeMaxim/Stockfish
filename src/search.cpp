@@ -94,6 +94,7 @@ namespace {
   // we convert it to a suitable fractional skill level using anchoring to CCRL Elo
   // (goldfish 1.13 = 2000) and a fit through Ordo derived Elo for match (TC 60+0.6)
   // results spanning a wide range of k values.
+  /*
   struct Skill {
     Skill(int skill_level, int uci_elo) {
         if (uci_elo)
@@ -110,7 +111,7 @@ namespace {
 
     double level;
     Move best = MOVE_NONE;
-  };
+  };*/
 
   template <NodeType nodeType>
   Value search(Position& pos, Stack* ss, Value alpha, Value beta, Depth depth, bool cutNode);
@@ -128,6 +129,7 @@ namespace {
 
   // perft() is our utility to verify move generation. All the leaf nodes up
   // to the given depth are generated and counted, and the sum is returned.
+  /*
   template<bool Root>
   uint64_t perft(Position& pos, Depth depth) {
 
@@ -152,7 +154,7 @@ namespace {
             sync_cout << UCI::move(m, pos.is_chess960()) << ": " << cnt << sync_endl;
     }
     return nodes;
-  }
+  }*/
 
 } // namespace
 
@@ -183,13 +185,13 @@ void Search::clear() {
 /// command. It searches from the root position and outputs the "bestmove".
 
 void MainThread::search() {
-
+/*
   if (Limits.perft)
   {
       nodes = perft<true>(rootPos, Limits.perft);
       sync_cout << "\nNodes searched: " << nodes << "\n" << sync_endl;
       return;
-  }
+  }*/
 
   Color us = rootPos.side_to_move();
   Time.init(Limits, us, rootPos.game_ply());
@@ -232,13 +234,14 @@ void MainThread::search() {
       Time.availableNodes += Limits.inc[us] - Threads.nodes_searched();
 
   Thread* bestThread = this;
+  /**
   Skill skill = Skill(Options["Skill Level"], Options["UCI_LimitStrength"] ? int(Options["UCI_Elo"]) : 0);
 
   if (   int(Options["MultiPV"]) == 1
       && !Limits.depth
       && !skill.enabled()
       && rootMoves[0].pv[0] != MOVE_NONE)
-      bestThread = Threads.get_best_thread();
+      bestThread = Threads.get_best_thread();*/
 
   bestPreviousScore = bestThread->rootMoves[0].score;
   bestPreviousAverageScore = bestThread->rootMoves[0].averageScore;
@@ -301,12 +304,13 @@ void Thread::search() {
   }
 
   size_t multiPV = size_t(Options["MultiPV"]);
+  /*
   Skill skill(Options["Skill Level"], Options["UCI_LimitStrength"] ? int(Options["UCI_Elo"]) : 0);
 
   // When playing with strength handicap enable MultiPV search that we will
   // use behind the scenes to retrieve a set of possible moves.
   if (skill.enabled())
-      multiPV = std::max(multiPV, (size_t)4);
+      multiPV = std::max(multiPV, (size_t)4);*/
 
   multiPV = std::min(multiPV, rootMoves.size());
 
@@ -441,8 +445,9 @@ void Thread::search() {
           continue;
 
       // If skill level is enabled and time is up, pick a sub-optimal best move
+      /*
       if (skill.enabled() && skill.time_to_pick(rootDepth))
-          skill.pick_best(multiPV);
+          skill.pick_best(multiPV);*/
 
       // Use part of the gained time from a previous stable move for the current move
       for (Thread* th : Threads)
@@ -499,9 +504,10 @@ void Thread::search() {
   mainThread->previousTimeReduction = timeReduction;
 
   // If skill level is enabled, swap best PV line with the sub-optimal one
+  /*
   if (skill.enabled())
       std::swap(rootMoves[0], *std::find(rootMoves.begin(), rootMoves.end(),
-                skill.best ? skill.best : skill.pick_best(multiPV)));
+                skill.best ? skill.best : skill.pick_best(multiPV)));*/
 }
 
 
@@ -1790,7 +1796,7 @@ moves_loop: // When in check, search starts here
 
   // When playing with strength handicap, choose best move among a set of RootMoves
   // using a statistical rule dependent on 'level'. Idea by Heinz van Saanen.
-
+/*
   Move Skill::pick_best(size_t multiPV) {
 
     const RootMoves& rootMoves = Threads.main()->rootMoves;
@@ -1819,7 +1825,7 @@ moves_loop: // When in check, search starts here
     }
 
     return best;
-  }
+  }*/
 
 } // namespace
 
