@@ -123,21 +123,21 @@ void Thread::idle_loop() {
 /// Upon resizing, threads are recreated to allow for binding if necessary.
 
 void ThreadPool::set(size_t requested) {
-
+/*
   if (threads.size() > 0)   // destroy any existing thread(s)
   {
       main()->wait_for_search_finished();
 
       while (threads.size() > 0)
           delete threads.back(), threads.pop_back();
-  }
+  }*/
 
   if (requested > 0)   // create new thread(s)
   {
       threads.push_back(new MainThread(0));
-
+    /*
       while (threads.size() < requested)
-          threads.push_back(new Thread(threads.size()));
+          threads.push_back(new Thread(threads.size()));*/
       clear();
 
       // Reallocate the hash with the new threadpool size
