@@ -151,7 +151,7 @@ public:
 ///
 /// For releases (non dev builds) we only include the version number:
 /// Stockfish version
-
+/*
 string engine_info(bool to_uci) {
   stringstream ss;
   ss << "Stockfish " << version << setfill('0');
@@ -183,11 +183,11 @@ string engine_info(bool to_uci) {
      << "the Stockfish developers (see AUTHORS file)";
 
   return ss.str();
-}
+}*/
 
 
 /// compiler_info() returns a string trying to describe the compiler we use
-
+/*
 std::string compiler_info() {
 
   #define make_version_string(major, minor, patch) stringify(major) "." stringify(minor) "." stringify(patch)
@@ -297,10 +297,11 @@ std::string compiler_info() {
   compiler += "\n";
 
   return compiler;
-}
+}*/
 
 
 /// Debug functions used mainly to collect run-time statistics
+/*
 constexpr int MaxDebugSlots = 32;
 
 namespace {
@@ -389,7 +390,7 @@ void dbg_print() {
                       << ": Total " << n << " Coefficient " << r
                       << std::endl;
         }
-}
+}*/
 
 
 /// Used to serialize access to std::cout to avoid multiple threads writing at

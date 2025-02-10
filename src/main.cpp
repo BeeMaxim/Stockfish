@@ -32,7 +32,7 @@ using namespace Stockfish;
 
 int main(int argc, char* argv[]) {
 
-  std::cout << engine_info() << std::endl;
+  // std::cout << engine_info() << std::endl;
 
   CommandLine::init(argc, argv);
   UCI::init(Options);
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
   PSQT::init();
   Bitboards::init();
   Position::init();
-  Bitbases::init();
+ // Bitbases::init();
  // Endgames::init();
   Threads.set(size_t(Options["Threads"]));
   Search::clear(); // After threads are up

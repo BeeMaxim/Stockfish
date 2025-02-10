@@ -77,7 +77,6 @@ bool Bitbases::probe(Square wksq, Square wpsq, Square bksq, Color stm) {
 
 
 void Bitbases::init() {
-
   std::vector<KPKPosition> db(MAX_INDEX);
   unsigned idx, repeat = 1;
 
