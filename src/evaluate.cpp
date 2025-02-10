@@ -36,7 +36,6 @@
 #include "timeman.h"
 #include "uci.h"
 #include "incbin/incbin.h"
-#include "nnue/evaluate_nnue.h"
 
 // Macro to embed the default efficiently updatable neural network (NNUE) file
 // data in the engine binary (using incbin.h, by Dale Weiler).
@@ -45,13 +44,14 @@
 //     const unsigned char *const gEmbeddedNNUEEnd;     // a marker to the end
 //     const unsigned int         gEmbeddedNNUESize;    // the size of the embedded file
 // Note that this does not work in Microsoft Visual Studio.
+/*
 #if !defined(_MSC_VER) && !defined(NNUE_EMBEDDING_OFF)
   INCBIN(EmbeddedNNUE, EvalFileDefaultName);
 #else
   const unsigned char        gEmbeddedNNUEData[1] = {0x0};
   const unsigned char *const gEmbeddedNNUEEnd = &gEmbeddedNNUEData[1];
   const unsigned int         gEmbeddedNNUESize = 1;
-#endif
+#endif*/
 
 
 using namespace std;
@@ -70,7 +70,7 @@ namespace Eval {
   /// network may be embedded in the binary), in the active working directory and
   /// in the engine directory. Distro packagers may define the DEFAULT_NNUE_DIRECTORY
   /// variable to have the engine search in a special directory in their distro.
-
+/*
   void NNUE::init() {
 
     useNNUE = Options["Use NNUE"];
@@ -144,7 +144,7 @@ namespace Eval {
         sync_cout << "info string NNUE evaluation using " << eval_file << " enabled" << sync_endl;
     else
         sync_cout << "info string classical evaluation enabled" << sync_endl;
-  }
+  }*/
 }
 
 namespace Trace {
@@ -1060,6 +1060,7 @@ Value Eval::evaluate(const Position& pos) {
 
   if (useClassical)
       v = Evaluation<NO_TRACE>(pos).value();
+/**
   else
   {
       int nnueComplexity;
@@ -1073,7 +1074,7 @@ Value Eval::evaluate(const Position& pos) {
       // Blend optimism with nnue complexity and (semi)classical complexity
       optimism += optimism * (nnueComplexity + abs(psq - nnue)) / 512;
       v = (nnue * (945 + npm) + optimism * (150 + npm)) / 1024;
-  }
+  }*/
 
   // Damp down the evaluation linearly when shuffling
   v = v * (200 - pos.rule50_count()) / 214;
@@ -1088,7 +1089,7 @@ Value Eval::evaluate(const Position& pos) {
 /// a string (suitable for outputting to stdout) that contains the detailed
 /// descriptions and values of each evaluation term. Useful for debugging.
 /// Trace scores are from white's point of view
-
+/*
 std::string Eval::trace(Position& pos) {
 
   if (pos.checkers())
@@ -1130,7 +1131,7 @@ std::string Eval::trace(Position& pos) {
      << "+------------+-------------+-------------+-------------+\n"
      << "|      Total | " << Term(TOTAL)
      << "+------------+-------------+-------------+-------------+\n";
-
+    
   if (Eval::useNNUE)
       ss << '\n' << NNUE::trace(pos) << '\n';
 
@@ -1138,6 +1139,7 @@ std::string Eval::trace(Position& pos) {
 
   v = pos.side_to_move() == WHITE ? v : -v;
   ss << "\nClassical evaluation   " << to_cp(v) << " (white side)\n";
+  
   if (Eval::useNNUE)
   {
       v = NNUE::evaluate(pos, false);
@@ -1154,5 +1156,6 @@ std::string Eval::trace(Position& pos) {
 
   return ss.str();
 }
+*/
 
 } // namespace Stockfish

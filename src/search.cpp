@@ -33,8 +33,8 @@
 #include "timeman.h"
 #include "tt.h"
 #include "uci.h"
-#include "syzygy/tbprobe.h"
-#include "nnue/evaluate_nnue.h"
+//#include "syzygy/tbprobe.h"
+//#include "nnue/evaluate_nnue.h"
 
 namespace Stockfish {
 
@@ -132,7 +132,7 @@ namespace {
   uint64_t perft(Position& pos, Depth depth) {
 
     StateInfo st;
-    ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
+    // ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
 
     uint64_t cnt, nodes = 0;
     const bool leaf = (depth == 2);
@@ -175,7 +175,7 @@ void Search::clear() {
   Time.availableNodes = 0;
   TT.clear();
   Threads.clear();
-  Tablebases::init(Options["SyzygyPath"]); // Free mapped files
+ // Tablebases::init(Options["SyzygyPath"]); // Free mapped files
 }
 
 
@@ -195,7 +195,7 @@ void MainThread::search() {
   Time.init(Limits, us, rootPos.game_ply());
   TT.new_search();
 
-  Eval::NNUE::verify();
+  // Eval::NNUE::verify();
 
   if (rootMoves.empty())
   {
@@ -538,7 +538,7 @@ namespace {
 
     Move pv[MAX_PLY+1], capturesSearched[32], quietsSearched[64];
     StateInfo st;
-    ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
+    // ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
 
     TTEntry* tte;
     Key posKey;
@@ -649,6 +649,7 @@ namespace {
     }
 
     // Step 5. Tablebases probe
+    /*
     if (!rootNode && !excludedMove && TB::Cardinality)
     {
         int piecesCount = pos.count<ALL_PIECES>();
@@ -698,7 +699,7 @@ namespace {
                 }
             }
         }
-    }
+    }*/
 
     CapturePieceToHistory& captureHistory = thisThread->captureHistory;
 
@@ -714,7 +715,7 @@ namespace {
     else if (excludedMove)
     {
         // Providing the hint that this node's accumulator will be used often brings significant Elo gain (13 Elo)
-        Eval::NNUE::hint_common_parent_position(pos);
+        // Eval::NNUE::hint_common_parent_position(pos);
         eval = ss->staticEval;
     }
     else if (ss->ttHit)
@@ -724,7 +725,7 @@ namespace {
         if (eval == VALUE_NONE)
             ss->staticEval = eval = evaluate(pos);
         else if (PvNode)
-            Eval::NNUE::hint_common_parent_position(pos);
+            // Eval::NNUE::hint_common_parent_position(pos);
 
         // ttValue can be used as a better position evaluation (~7 Elo)
         if (    ttValue != VALUE_NONE
@@ -886,7 +887,7 @@ namespace {
                 }
             }
 
-        Eval::NNUE::hint_common_parent_position(pos);
+        // Eval::NNUE::hint_common_parent_position(pos);
     }
 
 moves_loop: // When in check, search starts here
@@ -1411,7 +1412,7 @@ moves_loop: // When in check, search starts here
 
     Move pv[MAX_PLY+1];
     StateInfo st;
-    ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
+    // ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
 
     TTEntry* tte;
     Key posKey;
@@ -1915,7 +1916,7 @@ string UCI::pv(const Position& pos, Depth depth) {
 bool RootMove::extract_ponder_from_tt(Position& pos) {
 
     StateInfo st;
-    ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
+    //ASSERT_ALIGNED(&st, Eval::NNUE::CacheLineSize);
 
     bool ttHit;
 
@@ -1937,7 +1938,7 @@ bool RootMove::extract_ponder_from_tt(Position& pos) {
     pos.undo_move(pv[0]);
     return pv.size() > 1;
 }
-
+/*
 void Tablebases::rank_root_moves(Position& pos, Search::RootMoves& rootMoves) {
 
     RootInTB = false;
@@ -1983,6 +1984,6 @@ void Tablebases::rank_root_moves(Position& pos, Search::RootMoves& rootMoves) {
         for (auto& m : rootMoves)
             m.tbRank = 0;
     }
-}
+}*/
 
 } // namespace Stockfish

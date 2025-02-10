@@ -31,8 +31,8 @@
 #include "timeman.h"
 #include "tt.h"
 #include "uci.h"
-#include "syzygy/tbprobe.h"
-#include "nnue/evaluate_nnue.h"
+// #include "syzygy/tbprobe.h"
+// #include "nnue/evaluate_nnue.h"
 
 using namespace std;
 
@@ -87,9 +87,9 @@ namespace {
     Position p;
     p.set(pos.fen(), Options["UCI_Chess960"], &states->back(), Threads.main());
 
-    Eval::NNUE::verify();
+    // Eval::NNUE::verify();
 
-    sync_cout << "\n" << Eval::trace(p) << sync_endl;
+    // sync_cout << "\n" << Eval::trace(p) << sync_endl;
   }
 
 
@@ -262,33 +262,34 @@ void UCI::loop(int argc, char* argv[]) {
       // to the normal search.
       else if (token == "ponderhit")
           Threads.main()->ponder = false; // Switch to the normal search
-
+/*
       else if (token == "uci")
           sync_cout << "id name " << engine_info(true)
                     << "\n"       << Options
-                    << "\nuciok"  << sync_endl;
+                    << "\nuciok"  << sync_endl;*/
 
       else if (token == "setoption")  setoption(is);
       else if (token == "go")         go(pos, is, states);
       else if (token == "position")   position(pos, is, states);
-      else if (token == "ucinewgame") Search::clear();
+      // else if (token == "ucinewgame") Search::clear();
       else if (token == "isready")    sync_cout << "readyok" << sync_endl;
 
       // Add custom non-UCI commands, mainly for debugging purposes.
       // These commands must not be used during a search!
-      else if (token == "flip")     pos.flip();
-      else if (token == "bench")    bench(pos, is, states);
-      else if (token == "d")        sync_cout << pos << sync_endl;
-      else if (token == "eval")     trace_eval(pos);
-      else if (token == "compiler") sync_cout << compiler_info() << sync_endl;
+      // else if (token == "flip")     pos.flip();
+      // else if (token == "bench")    bench(pos, is, states);
+      // else if (token == "d")        sync_cout << pos << sync_endl;
+      // else if (token == "eval")     trace_eval(pos);
+      // else if (token == "compiler") sync_cout << compiler_info() << sync_endl;
+      /*
       else if (token == "export_net")
       {
           std::optional<std::string> filename;
           std::string f;
           if (is >> skipws >> f)
               filename = f;
-          Eval::NNUE::save_eval(filename);
-      }
+          // Eval::NNUE::save_eval(filename);
+      }*/
       else if (token == "--help" || token == "help" || token == "--license" || token == "license")
           sync_cout << "\nStockfish is a powerful chess engine for playing and analyzing."
                        "\nIt is released as free software licensed under the GNU GPLv3 License."
