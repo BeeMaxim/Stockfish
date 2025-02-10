@@ -60,12 +60,12 @@ void Thread::clear() {
   counterMoves.fill(MOVE_NONE);
   mainHistory.fill(0);
   captureHistory.fill(0);
-
+    /*
   for (bool inCheck : { false, true })
       for (StatsType c : { NoCaptures, Captures })
           for (auto& to : continuationHistory[inCheck][c])
               for (auto& h : to)
-                  h->fill(-71);
+                  h->fill(-71);*/
 }
 
 
