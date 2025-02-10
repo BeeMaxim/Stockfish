@@ -1175,11 +1175,12 @@ moves_loop: // When in check, search starts here
       else if (move == ttMove)
           r--;
 
-      ss->statScore =  4 * thisThread->mainHistory[us][from_to(move)] // 2
+      ss->statScore =  2 * thisThread->mainHistory[us][from_to(move)] // 2
                      /*+ (*contHist[0])[movedPiece][to_sq(move)]
                      + (*contHist[1])[movedPiece][to_sq(move)]
                      + (*contHist[3])[movedPiece][to_sq(move)]*/ // FIX ???
-                     - 4006;
+                     //- 4006;
+                     - 3506;
                      //- 1200;
 
       // Decrease/increase reduction for moves with a good/bad history (~25 Elo)
