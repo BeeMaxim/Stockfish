@@ -230,8 +230,9 @@ void MainThread::search() {
 
   // When playing in 'nodes as time' mode, subtract the searched nodes from
   // the available ones before exiting.
+  /*
   if (Limits.npmsec)
-      Time.availableNodes += Limits.inc[us] - Threads.nodes_searched();
+      Time.availableNodes += Limits.inc[us] - Threads.nodes_searched();*/
 
   Thread* bestThread = this;
   /**
@@ -247,8 +248,9 @@ void MainThread::search() {
   bestPreviousAverageScore = bestThread->rootMoves[0].averageScore;
 
   // Send again PV info if we have a new best thread
+  /*
   if (bestThread != this)
-      sync_cout << UCI::pv(bestThread->rootPos, bestThread->completedDepth) << sync_endl;
+      sync_cout << UCI::pv(bestThread->rootPos, bestThread->completedDepth) << sync_endl;*/
 
   sync_cout << "bestmove " << UCI::move(bestThread->rootMoves[0].pv[0]);
 
@@ -1900,22 +1902,22 @@ string UCI::pv(const Position& pos, Depth depth) {
          << " seldepth " << rootMoves[i].selDepth
          << " multipv "  << i + 1
          << " score "    << UCI::value(v);
-
+    /*
       if (Options["UCI_ShowWDL"])
-          ss << UCI::wdl(v, pos.game_ply());
-
+          ss << UCI::wdl(v, pos.game_ply());*/
+/*
       if (i == pvIdx && !tb && updated) // tablebase- and previous-scores are exact
-         ss << (rootMoves[i].scoreLowerbound ? " lowerbound" : (rootMoves[i].scoreUpperbound ? " upperbound" : ""));
+         ss << (rootMoves[i].scoreLowerbound ? " lowerbound" : (rootMoves[i].scoreUpperbound ? " upperbound" : ""));*/
 
       ss << " nodes "    << nodesSearched
          << " nps "      << nodesSearched * 1000 / elapsed
-         << " hashfull " << TT.hashfull()
+      //   << " hashfull " << TT.hashfull()
          << " tbhits "   << tbHits
-         << " time "     << elapsed
-         << " pv";
-
+         << " time "     << elapsed;
+ //        << " pv";
+/*
       for (Move m : rootMoves[i].pv)
-          ss << " " << UCI::move(m);
+          ss << " " << UCI::move(m);*/
   }
 
   return ss.str();

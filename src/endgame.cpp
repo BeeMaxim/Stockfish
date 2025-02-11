@@ -725,7 +725,7 @@ ScaleFactor Endgame<KBPKN>::operator()(const Position& pos) const {
 
 template<>
 ScaleFactor Endgame<KPKP>::operator()(const Position& pos) const {
-
+  return SCALE_FACTOR_DRAW;
   assert(verify_material(pos, strongSide, VALUE_ZERO, 1));
   assert(verify_material(pos, weakSide,   VALUE_ZERO, 1));
 

@@ -200,6 +200,7 @@ namespace {
 
   // The win rate model returns the probability of winning (in per mille units) given an
   // eval and a game ply. It fits the LTC fishtest statistics rather accurately.
+  /*
   int win_rate_model(Value v, int ply) {
 
      // The model only captures up to 240 plies, so limit the input and then rescale
@@ -222,7 +223,7 @@ namespace {
 
      // Return the win rate in per mille units rounded to the nearest value
      return int(0.5 + 1000 / (1 + std::exp((a - x) / b)));
-  }
+  }*/
 
 } // namespace
 
@@ -269,7 +270,7 @@ void UCI::loop(int argc, char* argv[]) {
                     << "\n"       << Options
                     << "\nuciok"  << sync_endl;*/
 
-      else if (token == "setoption")  setoption(is);
+      // else if (token == "setoption")  setoption(is);
       else if (token == "go")         go(pos, is, states);
       else if (token == "position")   position(pos, is, states);
       // else if (token == "ucinewgame") Search::clear();
@@ -335,7 +336,7 @@ string UCI::value(Value v) {
 
 /// UCI::wdl() reports the win-draw-loss (WDL) statistics given an evaluation
 /// and a game ply based on the data gathered for fishtest LTC games.
-
+/*
 string UCI::wdl(Value v, int ply) {
 
   stringstream ss;
@@ -346,7 +347,7 @@ string UCI::wdl(Value v, int ply) {
   ss << " wdl " << wdl_w << " " << wdl_d << " " << wdl_l;
 
   return ss.str();
-}
+}*/
 
 
 /// UCI::square() converts a Square to a string in algebraic notation (g1, a7, etc.)
