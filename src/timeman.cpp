@@ -54,6 +54,7 @@ void TimeManagement::init(Search::LimitsType& limits, Color us, int ply) {
   // to nodes, and use resulting values in time management formulas.
   // WARNING: to avoid time losses, the given npmsec (nodes per millisecond)
   // must be much lower than the real engine speed.
+  /*
   if (npmsec)
   {
       if (!availableNodes) // Only once at game start
@@ -63,7 +64,7 @@ void TimeManagement::init(Search::LimitsType& limits, Color us, int ply) {
       limits.time[us] = TimePoint(availableNodes);
       limits.inc[us] *= npmsec;
       limits.npmsec = npmsec;
-  }
+  }*/
 
   // Maximum move horizon of 50 moves
   int mtg = limits.movestogo ? std::min(limits.movestogo, 50) : 50;

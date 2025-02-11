@@ -1869,7 +1869,8 @@ void MainThread::check_time() {
 /// that all (if any) unsearched PV lines are sent using a previous search score.
 
 string UCI::pv(const Position& pos, Depth depth) {
-
+  return "";
+/*
   std::stringstream ss;
   TimePoint elapsed = Time.elapsed() + 1;
   const RootMoves& rootMoves = pos.this_thread()->rootMoves;
@@ -1902,12 +1903,12 @@ string UCI::pv(const Position& pos, Depth depth) {
          << " seldepth " << rootMoves[i].selDepth
          << " multipv "  << i + 1
          << " score "    << UCI::value(v);
-    /*
+    
       if (Options["UCI_ShowWDL"])
-          ss << UCI::wdl(v, pos.game_ply());*/
-/*
+          ss << UCI::wdl(v, pos.game_ply());
+
       if (i == pvIdx && !tb && updated) // tablebase- and previous-scores are exact
-         ss << (rootMoves[i].scoreLowerbound ? " lowerbound" : (rootMoves[i].scoreUpperbound ? " upperbound" : ""));*/
+         ss << (rootMoves[i].scoreLowerbound ? " lowerbound" : (rootMoves[i].scoreUpperbound ? " upperbound" : ""));
 
       ss << " nodes "    << nodesSearched
          << " nps "      << nodesSearched * 1000 / elapsed
@@ -1915,12 +1916,13 @@ string UCI::pv(const Position& pos, Depth depth) {
          << " tbhits "   << tbHits
          << " time "     << elapsed;
  //        << " pv";
-/*
+
       for (Move m : rootMoves[i].pv)
-          ss << " " << UCI::move(m);*/
+          ss << " " << UCI::move(m);
   }
 
   return ss.str();
+*/
 }
 
 

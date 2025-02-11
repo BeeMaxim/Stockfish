@@ -80,7 +80,7 @@ namespace {
 
   // trace_eval() prints the evaluation of the current position, consistent with
   // the UCI options set so far.
-
+/*
   void trace_eval(Position& pos) {
 
     StateListPtr states(new std::deque<StateInfo>(1));
@@ -90,12 +90,12 @@ namespace {
     // Eval::NNUE::verify();
 
     // sync_cout << "\n" << Eval::trace(p) << sync_endl;
-  }
+  }*/
 
 
   // setoption() is called when the engine receives the "setoption" UCI command.
   // The function updates the UCI option ("name") to the given value ("value").
-
+/*
   void setoption(istringstream& is) {
 
     string token, name, value;
@@ -114,7 +114,7 @@ namespace {
         Options[name] = value;
     else
         sync_cout << "No such option: " << name << sync_endl;
-  }
+  }*/
 
 
   // go() is called when the engine receives the "go" UCI command. The function
@@ -137,12 +137,12 @@ namespace {
 
         if (token == "wtime")     is >> limits.time[WHITE];
         else if (token == "btime")     is >> limits.time[BLACK];
-        else if (token == "winc")      is >> limits.inc[WHITE];
-        else if (token == "binc")      is >> limits.inc[BLACK];
-        else if (token == "movestogo") is >> limits.movestogo;
+   //     else if (token == "winc")      is >> limits.inc[WHITE];
+   //     else if (token == "binc")      is >> limits.inc[BLACK];
+   //     else if (token == "movestogo") is >> limits.movestogo;
         else if (token == "depth")     is >> limits.depth;
         // else if (token == "nodes")     is >> limits.nodes;
-        else if (token == "movetime")  is >> limits.movetime;
+ //       else if (token == "movetime")  is >> limits.movetime;
         // else if (token == "mate")      is >> limits.mate;
         // else if (token == "perft")     is >> limits.perft;
         // else if (token == "infinite")  limits.infinite = 1;
@@ -241,9 +241,9 @@ void UCI::loop(int argc, char* argv[]) {
   StateListPtr states(new std::deque<StateInfo>(1));
 
   pos.set(StartFEN, &states->back(), Threads.main());
-
+/*
   for (int i = 1; i < argc; ++i)
-      cmd += std::string(argv[i]) + " ";
+      cmd += std::string(argv[i]) + " ";*/
 
   do {
       if (argc == 1 && !getline(cin, cmd)) // Wait for an input or an end-of-file (EOF) indication
