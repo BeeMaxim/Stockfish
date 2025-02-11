@@ -58,7 +58,7 @@ endif
 ### Source and object files
 SRCS = bitboard.cpp evaluate.cpp main.cpp \
 	material.cpp misc.cpp movegen.cpp movepick.cpp pawns.cpp position.cpp psqt.cpp \
-	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp bitbase.cpp endgame.cpp # tune.cpp bitbase.cpp
+	search.cpp thread.cpp timeman.cpp tt.cpp uci.cpp ucioption.cpp endgame.cpp # tune.cpp bitbase.cpp
 
 OBJS = $(notdir $(SRCS:.cpp=.o))
 
@@ -563,7 +563,7 @@ endif
 ### 3.3 Optimization
 ifeq ($(optimize),yes)
 
-	CXXFLAGS += -Os
+	CXXFLAGS += -O3
 
 	ifeq ($(comp),gcc)
 		ifeq ($(OS), Android)

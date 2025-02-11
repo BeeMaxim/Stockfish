@@ -68,7 +68,7 @@ namespace {
 namespace Endgames {
 
   std::pair<Map<Value>, Map<ScaleFactor>> maps;
-
+/*
   void init() {
 
     add<KPK>("KPK");
@@ -85,9 +85,9 @@ namespace Endgames {
     add<KRPKB>("KRPKB");
     add<KBPKB>("KBPKB");
     add<KBPKN>("KBPKN");
-    //add<KBPPKB>("KBPPKB");
-    //add<KRPPKRP>("KRPPKRP");
-  }
+    add<KBPPKB>("KBPPKB");
+    add<KRPPKRP>("KRPPKRP");
+  }*/
 }
 
 
@@ -149,6 +149,7 @@ Value Endgame<KBNK>::operator()(const Position& pos) const {
 
 
 /// KP vs K. This endgame is evaluated with the help of a bitbase
+
 template<>
 Value Endgame<KPK>::operator()(const Position& pos) const {
 
@@ -161,9 +162,9 @@ Value Endgame<KPK>::operator()(const Position& pos) const {
   Square weakKing   = normalize(pos, strongSide, pos.square<KING>(weakSide));
 
   Color us = strongSide == pos.side_to_move() ? WHITE : BLACK;
-
+/*
   if (!Bitbases::probe(strongKing, strongPawn, weakKing, us))
-      return VALUE_DRAW;
+      return VALUE_DRAW;*/
 
   Value result = VALUE_KNOWN_WIN + PawnValueEg + Value(rank_of(strongPawn));
 
@@ -721,6 +722,7 @@ ScaleFactor Endgame<KBPKN>::operator()(const Position& pos) const {
 /// has at least a draw with the pawn as well. The exception is when the stronger
 /// side's pawn is far advanced and not on a rook file; in this case it is often
 /// possible to win (e.g. 8/4k3/3p4/3P4/6K1/8/8/8 w - - 0 1).
+
 template<>
 ScaleFactor Endgame<KPKP>::operator()(const Position& pos) const {
 
@@ -741,7 +743,8 @@ ScaleFactor Endgame<KPKP>::operator()(const Position& pos) const {
 
   // Probe the KPK bitbase with the weakest side's pawn removed. If it's a draw,
   // it's probably at least a draw even with the pawn.
-  return Bitbases::probe(strongKing, strongPawn, weakKing, us) ? SCALE_FACTOR_NONE : SCALE_FACTOR_DRAW;
+  return SCALE_FACTOR_DRAW;
+  // return Bitbases::probe(strongKing, strongPawn, weakKing, us) ? SCALE_FACTOR_NONE : SCALE_FACTOR_DRAW;
 }
 
 } // namespace Stockfish
